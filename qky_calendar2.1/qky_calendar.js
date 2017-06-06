@@ -14,7 +14,7 @@ define(function(require,exports) {
 						/*基础配置*/
 						ajaxsrc:"qky_calendar2.1/qky_calendar.html",//异步地址
 						csssrc:"qky_calendar2.1/css/",//css调用地址
-						theme:"black_theme",//主题css
+						theme:"green_theme",//主题css
 						//在哪里展出,默认左下（css直接锁定了）展出，值："po_leftup（左上）,po_rightdown（右下）,po_rightup（右上）",还可以再加上日历弹窗宽度是否跟随输入框宽度“wd100”,用，号分开,默认日历弹窗宽度240px ;
 						position:"",					
 						boxid:".qkycalendar_box",//日历盒子id或者class
@@ -58,10 +58,10 @@ define(function(require,exports) {
 			 if (!isValid(options)) return this;
 			 opts = $.extend({}, opts, options);//有传值进来后，进行对默认覆盖
 			 if(isone){
-			 loadExtentFile(opts.csssrc+"qky_calendar.css","css");//基础css
-			 loadExtentFile(opts.csssrc+"theme/"+opts.theme+".css","css");//主题css
-			 isone=false;
-			 }
+				loadExtentFile(opts.csssrc+"qky_calendar.css","css",false);//基础css
+				loadExtentFile(opts.csssrc+"theme/"+opts.theme+".css","css",true);//主题css
+			 	isone=false;
+			}
 			 //机制和选择初始化去掉或者改变指定状态
 			 if(!opts.isshowym)opts.isshowday=false;//isshowym为false的时候isshowday一定得false
 			 if(opts.isshowym&&!opts.isshowday)opts.isshowtime=false;//杜绝在不显示天数的情况下，同时显示年月选择和时间选择
@@ -69,6 +69,21 @@ define(function(require,exports) {
 			 
 			 qkycalendar_draw(opts);	
 		}
+		
+		exports.changetheme=function(theme){
+			//console.log(theme);
+			var thishref=$("#theme").attr("href");
+			var hrefs=thishref.split("/");
+			
+			hrefs[hrefs.length-1]=theme+".css";
+			var newshref="";
+			for(var i=0;i<hrefs.length;i++){
+				if(i!=hrefs.length-1)
+				newshref+=hrefs[i]+"/";
+				else newshref+=hrefs[i]
+			}
+			$("#theme").attr("href",newshref);
+	    }
 		
 
 		
