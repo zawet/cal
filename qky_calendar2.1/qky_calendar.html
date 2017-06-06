@@ -1,0 +1,83 @@
+<div class="qkycalendar">
+    <div class="ymd_box">
+        <div class="qkycalendar_years row">
+            <!--<a  class="qkycalendar_chooose_button perv"><i class="qkyicon_14">&#xe604;</i></a>-->
+            <div class="times_control flo_l">
+            <input class="time_val year" value="2017" onKeyUp="if(this.value.length>4){this.value=this.value.substr(0,4)};this.value=this.value.replace(/[^\d]/g,'');">
+            <span class="time_chooseicon" level="1" min="1970" max="3000">
+                <i class="calicon timeup">&#xe67d;</i>
+                <i class="calicon timedown">&#xe617;</i>
+            </span>
+            </div>
+            <span class="flo_l">年</span>
+            
+            <div class="times_control flo_l" style="width:25%">
+            <input class="time_val moon" value="5" onKeyUp="if(this.value.length>2){this.value=this.value.substr(0,2)};this.value=this.value.replace(/[^\d]/g,'');">
+            <span class="time_chooseicon" level="1" min="1" max="12">
+                <i class="calicon timeup">&#xe67d;</i>
+                <i class="calicon timedown">&#xe617;</i>
+            </span>
+            </div>
+            <span class="flo_l">月</span> 
+            <!--<a  class="qkycalendar_chooose_button next"><i class="qkyicon_14">&#xe6b3;</i></a>-->
+        </div>
+    </div>
+                            
+    <div class="qkycalendar_mian">
+    	<table class="tables"></table> 
+    </div>
+    
+    <div class="qkycalendar_times row hms"> 
+        <div class="col_3">
+            <div class="times_control">
+                <span class="time_val hour"></span>
+                <span class="time_chooseicon" level="1" min="0" max="23">
+                    <i class="calicon timeup ">&#xe67d;</i>
+                    <i class="calicon timedown">&#xe617;</i>
+                </span>
+            </div>
+        </div>
+        <div class="col_1 fg">:</div>
+        <div class="col_4">
+            <div class="times_control">
+                <span class="time_val min"></span>
+                <span class="time_chooseicon" level="1" min="0" max="59">
+                    <i class="calicon timeup">&#xe67d;</i>
+                    <i class="calicon timedown">&#xe617;</i>
+                </span>
+            </div>
+        </div>
+        <div class="col_1 fg">:</div>
+        <div class="col_3">
+            <div class="times_control">
+            <span class="time_val second"></span>
+            <span class="time_chooseicon" level="1" min="0" max="60">
+                <i class="calicon timeup">&#xe67d;</i>
+                <i class="calicon timedown">&#xe617;</i>
+            </span>
+            </div>
+        </div>
+    </div>
+                                
+    <div class="qkycalendar_times row hm"> 
+        <div class="col_5">
+            <div class="times_control">
+                <span class="time_val hour"></span>
+                <span class="time_chooseicon" level="1" min="0" max="23">
+                    <i class="calicon timeup">&#xe67d;</i>
+                    <i class="calicon timedown">&#xe617;</i>
+                </span>
+            </div>
+        </div>
+        <div class="col_2 fg">:</div>
+        <div class="col_5 pl0 pr0">
+            <div class="times_control">
+                <span class="time_val min"></span>
+                <span class="time_chooseicon" level="1" min="0" max="60">
+                    <i class="calicon timeup">&#xe67d;</i>
+                    <i class="calicon timedown">&#xe617;</i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

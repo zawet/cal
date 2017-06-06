@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>独立日历插件演示</title>
+</head>
+<body>
+<div class="qkycalendar_box default"><input type="text" class="qkycalendar_btn"></div>
+<div class="qkycalendar_box hms"><input type="text" class="qkycalendar_btn"></div>
+<div class="qkycalendar_box hm"><input type="text" class="qkycalendar_btn"></div>
+<div class="qkycalendar_box only_hms"><input type="text" class="qkycalendar_btn"></div>
+<div class="qkycalendar_box only_hm"><input type="text" class="qkycalendar_btn"></div>
+<div class="qkycalendar_box only_ym"><input type="text" class="qkycalendar_btn"></div>
+
+<span class="">使用说明</span>
+<div>1.引用jq,是一定要的依赖，然后引用qky_calendar_nosea.js（不使用seajs版本），qky_calendar.js(得配合使用seajs，用seajs来引用插件js)</div>
+<div>2.创建唯一盒子<code>&lt;div class="qkycalendar_box default"&gt;&lt;input type="text" class="qkycalendar_btn"&gt;&lt;/div&gt;</code></div>
+<div>3.执行qkycalendar函数并传入指定参数，boxid是必须传的，而且必须保证boxid唯一性！如默认<code>qkycalendar({boxid:".qkycalendar_box.default"});</code></div>
+
+ <span class="">日历插件参数表</span>
+            
+            <table class="tables">
+            <thead><tr><th colspan="3">基础配置</th></tr></thead>
+            <thead><tr><th width="16%">参数名</th><th width="24%">默认值</th><th width="60%">作用</th></tr></thead>
+            <tbody>
+            <tr><td>ajaxsrc</td><td>按照从哪调用进行引用</td><td>//日历主体html异步地址</td></tr>
+            <tr><td>csssrc</td><td>按照从哪调用进行引用</td><td>//css调用地址(到存放css的文件夹就行)</td></tr>
+            <tr><td>theme</td><td>green_theme</td><td>//主题css，默认绿色，目前有三个主题（green_them(绿色白底)，blue_them(蓝色白底)，black_them(黑色主题)）</td></tr>
+            
+            <tr><td>position</td><td>"po_leftup,ml15"</td><td>/*在哪里展出,默认左下（css直接锁定了）展出，值："po_leftup（左上）,po_rightdown（右下）,po_rightup（右上）",还可以再加上日历弹窗宽度是否跟随输入框宽度“wd100”,用，号分开,默认日历弹窗宽度240px;*/	</td></tr>
+            <tr><td>boxid</td><td>".qkycalendar_box"</td><td>//日历盒子id或者class</td></tr>
+            <tr><td>drawid</td><td>".qkycalendar"</td><td>//日历渲染id或者class</td></tr>
+            <tr><td>cilckid</td><td>".qkycalendar_btn"</td><td>//日历点击id或者class</td></tr>
+            <tr><td>hoverid</td><td>".qkycalendar_btn_hover"</td><td>//日历滑动id或者class(跟点击id只能二选一，要不点击要不悬停)</td></tr>
+            </tbody>
+            </table>
+            
+            <table class="table table-condensed table-bordered">
+            <thead><tr><th colspan="3">基础配置日期时间，不覆盖默认当前今天今时</th></tr></thead>
+            <thead><tr><th width="16%">参数名</th><th width="24%">默认值</th><th width="60%">作用</th></tr></thead>
+            <tbody>
+            <tr><td>year</td><td>默认调用当前年</td><td>//年</td></tr>
+            <tr><td>moon</td><td>默认调用当前月</td><td>//月</td></tr>
+            <tr><td>day</td><td>默认调用当前日</td><td>//日</td></tr>
+            <tr><td>hours</td><td>默认调用当前时</td><td>//时</td></tr>
+            <tr><td>minutes</td><td>默认调用当前分</td><td>//分</td></tr>
+            <tr><td>seconds</td><td>默认调用当前秒</td><td>//秒</td></tr>
+            </tbody>
+            </table>
+            
+            <table class="table table-condensed table-bordered">
+            <thead><tr><th colspan="3">过去日子选择限制（目前只支持日期年月日，不支持单年月或者单时分秒以及年月日时分秒）</th></tr></thead>
+            <thead><tr><th width="16%">参数名</th><th width="24%">默认值</th><th width="60%">作用</th></tr></thead>
+            <tbody>
+            <tr><td>oldday_set</td><td>/</td><td>//限制josn</td></tr>
+            <tr><td>oldday_set.isset</td><td>false</td><td>//是否设置限制</td></tr>
+            <tr><td>oldday_set.setdate</td><td>"today"</td><td>//setdate为设置什么日期或者时刻为新旧日期转折，<br/>默认为today就是今天会自动转化为今天日期，<br/>只支持格式为yyyy-mm-dd</td></tr>
+            </tbody>
+            </table>
+            
+            <table class="table table-condensed table-bordered">
+            <thead><tr><th colspan="3">机制判断</th></tr></thead>
+            <thead><tr><th width="16%">参数名</th><th width="24%">默认值</th><th width="60%">作用</th></tr></thead>
+            <tbody>
+            <tr><td>isinput</td><td>false</td><td>//是否从输入框里的时间来做初始值</td></tr>
+            <tr><td>isdistshowdate</td><td>false</td><td>//是否一开始就在输入框里显示初始化日期</td></tr>
+            <tr><td>isshowym</td><td>true</td><td>//是否显示年月,不能出现年月不显示而显示日数，就是isshowym为false的时候isshowday一定得false（自动会换）</td></tr>
+            <tr><td>isshowday</td><td>true</td><td>//是否显示日数选择 只有在isshowym为true时才能有作用</td></tr>
+            <tr><td>isshowtime</td><td>false</td><td>//是否显示时分秒////不能在不显示天数的情况下，同时显示年月选择和时间选择</td></tr>
+            </tbody>
+            </table>
+            <table class="table table-condensed table-bordered">
+            <thead><tr><th colspan="3">函数回调</th></tr></thead>
+            <thead><tr><th width="16%">参数名</th><th width="24%">默认值</th><th width="60%">作用</th></tr></thead>
+            <tbody>
+            <tr><td>clickday</td><td>默认给回调到给输入框传日历插件里选到的日期数据</td><td>//日数点击时执行</td></tr>
+            <tr><td>choosetimes</td><td>默认给回调到给输入框传日历插件里选到的日期数据</td><td>//时分秒转换时执行</td></tr>
+            
+            </tbody>
+            </table>
+
+<script src="jq/1.11.1/jquery.min.js"></script>
+<script src="qky_calendar2.1/qky_calendar_nosea.js"></script>
+
+<script>
+$(function(){
+	qkycalendar({boxid:".qkycalendar_box.default"});
+	qkycalendar({boxid:".qkycalendar_box.hms",isshowtime:"hms"});
+	qkycalendar({boxid:".qkycalendar_box.hm",isshowtime:"hm"});
+	qkycalendar({boxid:".qkycalendar_box.only_hms",isshowtime:"hms",isshowym:false});
+	qkycalendar({boxid:".qkycalendar_box.only_hm",isshowtime:"hm",isshowym:false});
+	qkycalendar({boxid:".qkycalendar_box.only_ym",isshowday:false});
+});
+</script>
+</body>
+</html>

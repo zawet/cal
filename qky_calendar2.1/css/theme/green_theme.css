@@ -1,0 +1,28 @@
+@charset "utf-8";
+/* CSS Document */
+
+.qkycalendar{background:#fff; border:1px solid #ddd; box-shadow:1px 1px 4px 1px #e1e1e1;}/*日历弹窗外框，可调整背景，边框，投影的颜色*/
+
+.times_control i{color:#2baf2b;}/*年月时分秒的上下选择icon按钮，可调整字体的颜色*/
+.times_control i:hover{color:#72D572;}/*年月时分秒的上下选择icon按钮悬停时候，可调整字体的颜色*/
+
+.qkycalendar_years .times_control input.time_val{color:#2baf2b;}/*年月文字颜色，可调整字体的颜色*/
+.qkycalendar_years .times_control input.time_val:hover{ border-color:#2baf2b;}/*年月的输入框悬停时候的边框颜色，可调整边框的颜色*/
+
+.qkycalendar_mian .tables>thead>tr>th{  background:#2baf2b; color:#fff;}/*星期条背景色和字体颜色，可调整背景和字体的颜色*/
+
+.qkycalendar_mian .tables>tbody>tr>td a{ color:#737373;}/*默认正常状态下的日数字体颜色*/
+.qkycalendar_mian .tables>tbody>tr>td a:hover{background:#eee;border-color:#ddd;}/*默认正常状态下时悬停时候的日数字体，背景，边框颜色*/
+
+.qkycalendar_mian .tables>tbody>tr>td a.today{background:#fff; color:#2baf2b; border-color:#2baf2b;}/*今天的日数字体，背景，边框颜色*/
+.qkycalendar_mian .tables>tbody>tr>td a.today:hover{background:#2baf2b; color:#fff;border-color:#2baf2b;}/*今天的悬停时候的日数字体，背景，边框颜色*/
+
+.qkycalendar_mian .tables>tbody>tr>td a.active{background:#72D572;color:#fff;border-color:#72D572;}/*选中的日数字体，背景，边框颜色*/
+.qkycalendar_mian .tables>tbody>tr>td a.active:hover{background:#2baf2b;color:#fff;border-color:#2baf2b;}/*选中的悬停时候的日数字体，背景，边框颜色*/
+
+.qkycalendar_mian .tables>tbody>tr>td a.oldday{ color:#aaa;background:#fff;border-color:#fff; }/*过去的日数字体，背景，边框颜色*/
+.qkycalendar_mian .tables>tbody>tr>td a.oldday:hover{background:#fff;color:#aaa;border-color:#fff;}/*过去的悬停时候的日数字体，背景，边框颜色*/
+.qkycalendar_mian .tables>tbody>tr>td a.oldday.active{ background:#f5f5f5;}/*过去的默认选中的日数背景颜色*/
+
+.qkycalendar_times{border-top:1px solid #eee; background:#f9f9f9;}/*时分秒条的背景色，边框色*/
+
