@@ -14,7 +14,7 @@
 		/*基础配置*/
 		ajaxsrc:"qky_calendar2.1/qky_calendar.html",//异步地址
 		csssrc:"qky_calendar2.1/css/",//css调用地址
-		theme:"blue_theme",//主题css
+		theme:"green_theme",//主题css
 		position:"",/*在哪里展出,默认左下（css直接锁定了）展出，值："po_leftup（左上）,po_rightdown（右下）,po_rightup（右上）",还可以再加上日历弹窗宽度是否跟随输入框宽度“wd100”,用，号分开,默认日历弹窗宽度240px;*/					
 		boxid:".qkycalendar_box",//日历盒子id或者class
 		drawid:".qkycalendar",//日历渲染id或者class
@@ -43,10 +43,10 @@
 							
 		/*函数回调*/
 		clickday:function(id,istime,isym,isday){//日数点击，可以外接函数蹭掉默认函数，默认是把选中的日期加到日历组建底部
-			id.prev(".qkycalendar_btn").val(redate(id,istime,isym,isday));
+			//id.prev(".qkycalendar_btn").val(redate(id,istime,isym,isday));
 		},
 		choosetimes:function(id,istime,isym,isday){//时间转换，可以外接函数蹭掉默认函数，默认是把选中的日期加到日历组建底部
-			id.prev(".qkycalendar_btn").val(redate(id,istime,isym,isday));
+			//id.prev(".qkycalendar_btn").val(redate(id,istime,isym,isday));
 		}		
 	};
 	
@@ -57,10 +57,10 @@
 			 if (!isValid(options)) return this;
 			 opts = $.extend({}, opts, options);//有传值进来后，进行对默认覆盖
 			 if(isone){
-			 loadExtentFile(opts.csssrc+"qky_calendar.css","css");//基础css
-			 loadExtentFile(opts.csssrc+"theme/"+opts.theme+".css","css");//主题css
-			 isone=false;
-			 }
+				loadExtentFile(opts.csssrc+"qky_calendar.css","css",false);//基础css
+				loadExtentFile(opts.csssrc+"theme/"+opts.theme+".css","css",true);//主题css
+			 	isone=false;
+			}
 			 //机制和选择初始化去掉或者改变指定状态
 			 if(!opts.isshowym)opts.isshowday=false;//isshowym为false的时候isshowday一定得false
 			 if(opts.isshowym&&!opts.isshowday)opts.isshowtime=false;//杜绝在不显示天数的情况下，同时显示年月选择和时间选择
@@ -68,7 +68,20 @@
 			 
 			 qkycalendar_draw(opts);	
 		}
-		
+		window.changetheme=function(theme){
+			//console.log(theme);
+			var thishref=$("#theme").attr("href");
+			var hrefs=thishref.split("/");
+			
+			hrefs[hrefs.length-1]=theme+".css";
+			var newshref="";
+			for(var i=0;i<hrefs.length;i++){
+				if(i!=hrefs.length-1)
+				newshref+=hrefs[i]+"/";
+				else newshref+=hrefs[i]
+			}
+			$("#theme").attr("href",newshref);
+	    }
 
 		
 		//日历整体执行渲染（主体执行域）
@@ -320,6 +333,7 @@
 						if($(this).hasClass("newday")){
 							$(this).parents("tbody").find("a").removeClass("active");
 							$(this).addClass("active");
+							$(this).parents(".qkycalendar").prev(".qkycalendar_btn").val(redate($(this).parents(".qkycalendar"),isshowtime,isshowym,isshowday));
 							clickday($(this).parents(".qkycalendar"),isshowtime,isshowym,isshowday);
 						}
 					});
@@ -350,6 +364,7 @@
 				}
 				temval=temval < 10 ? '0' + temval: temval;
 				val.html(temval);
+				$(this).parents(".qkycalendar").prev(".qkycalendar_btn").val(redate($(this).parents(".qkycalendar"),isshowtime,isshowym,isshowday));
 				choosetimes($(this).parents(".qkycalendar"),isshowtime,isshowym,isshowday);
 			})
 		}
@@ -475,7 +490,7 @@ function getclass_indian(id){
 	return reclass;
 }
 //直接加css和js文件
-function loadExtentFile(filePath, fileType){
+function loadExtentFile(filePath, fileType,istheme){
     if(fileType == "js"){
         var oJs = document.createElement('script');        
         oJs.setAttribute("type","text/javascript");
@@ -484,7 +499,8 @@ function loadExtentFile(filePath, fileType){
     }else if(fileType == "css"){
         var oCss = document.createElement("link"); 
         oCss.setAttribute("rel", "stylesheet"); 
-        oCss.setAttribute("type", "text/css");  
+        oCss.setAttribute("type", "text/css");
+		if(istheme)oCss.setAttribute("id", "theme");  
         oCss.setAttribute("href", filePath);
         document.getElementsByTagName("head")[0].appendChild(oCss);//绑定
     }
