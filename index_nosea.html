@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>独立日历插件演示</title>
+<title>独立日历插件演示_无seajs版本</title>
 <style>
 body{ padding:0; margin:0;}
 h3{ margin:0; padding:0; padding-bottom:15px;}
@@ -266,34 +266,34 @@ h3 span{ line-height:30px;}
                 </table>
     </div>
     <script src="jq/1.11.1/jquery.min.js"></script>
-    <script src="sea.js"></script>
+    <script src="qky_calendar2.1/qky_calendar_nosea.js"></script>
     
     <script>
-	seajs.use(["qky_calendar2.1/qky_calendar"],function(cal){
-        cal.qkycalendar({boxid:".qkycalendar_box.default"});
-        cal.qkycalendar({boxid:".qkycalendar_box.hms",isshowtime:"hms"});
-        cal.qkycalendar({boxid:".qkycalendar_box.hm",isshowtime:"hm"});
-        cal.qkycalendar({boxid:".qkycalendar_box.only_hms",isshowtime:"hms",isshowym:false});
-        cal.qkycalendar({boxid:".qkycalendar_box.only_hm",isshowtime:"hm",isshowym:false});
-        cal.qkycalendar({boxid:".qkycalendar_box.only_ym",isshowday:false});
-		cal.qkycalendar({boxid:".qkycalendar_box.old_day",oldday_set:{isset:true,setdate:"today"}});
-		cal.qkycalendar({boxid:".qkycalendar_box.s_e"});
+    $(function(){
+        qkycalendar({boxid:".qkycalendar_box.default"});
+        qkycalendar({boxid:".qkycalendar_box.hms",isshowtime:"hms"});
+        qkycalendar({boxid:".qkycalendar_box.hm",isshowtime:"hm"});
+        qkycalendar({boxid:".qkycalendar_box.only_hms",isshowtime:"hms",isshowym:false});
+        qkycalendar({boxid:".qkycalendar_box.only_hm",isshowtime:"hm",isshowym:false});
+        qkycalendar({boxid:".qkycalendar_box.only_ym",isshowday:false});
+		qkycalendar({boxid:".qkycalendar_box.old_day",oldday_set:{isset:true,setdate:"today"}});
+		qkycalendar({boxid:".qkycalendar_box.s_e"});
 		
-		cal.qkycalendar({boxid:".qkycalendar_box.lb" ,position:"po_leftdown"});
-		cal.qkycalendar({boxid:".qkycalendar_box.lu" ,position:"po_leftup"});
-		cal.qkycalendar({boxid:".qkycalendar_box.rb" ,position:"po_rightdown"});
-		cal.qkycalendar({boxid:".qkycalendar_box.ru" ,position:"po_rightup"});
-		cal.qkycalendar({boxid:".qkycalendar_box.rufull",position:"po_rightup,wd100",isshowtime:"hm"});
-		cal.qkycalendar({boxid:".qkycalendar_box.rdfull",position:"po_rightdown,wd100",isshowtime:"hms"});
+		qkycalendar({boxid:".qkycalendar_box.lb" ,position:"po_leftdown"});
+		qkycalendar({boxid:".qkycalendar_box.lu" ,position:"po_leftup"});
+		qkycalendar({boxid:".qkycalendar_box.rb" ,position:"po_rightdown"});
+		qkycalendar({boxid:".qkycalendar_box.ru" ,position:"po_rightup"});
+		qkycalendar({boxid:".qkycalendar_box.rufull",position:"po_rightup,wd100",isshowtime:"hm"});
+		qkycalendar({boxid:".qkycalendar_box.rdfull",position:"po_rightdown,wd100",isshowtime:"hms"});
 		
-		cal.qkycalendar({boxid:".qkycalendar_box.isinput",isinput:true,isdistshowdate:true});
-		cal.qkycalendar({boxid:".qkycalendar_box.isinputhms",isinput:true,isdistshowdate:true,isshowtime:"hms"});
-		cal.qkycalendar({boxid:".qkycalendar_box.isinputhm",isinput:true,isdistshowdate:true,isshowtime:"hm"});
-		cal.qkycalendar({boxid:".qkycalendar_box.isinput_onlyhms",isinput:true,isdistshowdate:true,isshowtime:"hms",isshowym:false});
-		cal.qkycalendar({boxid:".qkycalendar_box.isinput_onlyhm",isinput:true,isdistshowdate:true,isshowtime:"hm",isshowym:false});
-		cal.qkycalendar({boxid:".qkycalendar_box.isinput_onlyym",isinput:true,isdistshowdate:true,isshowday:false});
+		qkycalendar({boxid:".qkycalendar_box.isinput",isinput:true,isdistshowdate:true});
+		qkycalendar({boxid:".qkycalendar_box.isinputhms",isinput:true,isdistshowdate:true,isshowtime:"hms"});
+		qkycalendar({boxid:".qkycalendar_box.isinputhm",isinput:true,isdistshowdate:true,isshowtime:"hm"});
+		qkycalendar({boxid:".qkycalendar_box.isinput_onlyhms",isinput:true,isdistshowdate:true,isshowtime:"hms",isshowym:false});
+		qkycalendar({boxid:".qkycalendar_box.isinput_onlyhm",isinput:true,isdistshowdate:true,isshowtime:"hm",isshowym:false});
+		qkycalendar({boxid:".qkycalendar_box.isinput_onlyym",isinput:true,isdistshowdate:true,isshowday:false});
 		$(".theme_select").change(function(){
-			cal.changetheme($(this).find("option:selected").val());
+			changetheme($(this).find("option:selected").val());
 		});
     });
 

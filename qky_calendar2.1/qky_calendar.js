@@ -10,46 +10,45 @@ define(function(require,exports) {
 	var ys,ms,ds,hs,mis,ss;
 	
 	//日历默认参数
-			var opt={
-						/*基础配置*/
-						ajaxsrc:"qky_calendar2.1/qky_calendar.html",//异步地址
-						csssrc:"qky_calendar2.1/css/",//css调用地址
-						theme:"green_theme",//主题css
-						//在哪里展出,默认左下（css直接锁定了）展出，值："po_leftup（左上）,po_rightdown（右下）,po_rightup（右上）",还可以再加上日历弹窗宽度是否跟随输入框宽度“wd100”,用，号分开,默认日历弹窗宽度240px ;
-						position:"",					
-						boxid:".qkycalendar_box",//日历盒子id或者class
-						drawid:".qkycalendar",//日历渲染id或者class
-						cilckid:".qkycalendar_btn",//日历点击id或者class
-						hoverid:".qkycalendar_btn_hover",//日历滑动id或者class
-						
-						/*初始日期时间*/
-						year:toy,
-						moon:tom,
-						day:tod,
-						minutes:minute,
-						hours:hour,
-						seconds:second,
-						
-						/*过去日子选择限制（目前只支持日期年月日，不支持单年月或者单时分秒以及年月日时分秒）*/
-						oldday_set:{isset:false,setdate:"today"},//过去日子操作设置
-						//isset是否设置限制
-						//setdate为设置什么日期或者时刻为新旧日期转折，默认为today就是今天会自动转化为今天日期，只支持格式为yyyy-mm-dd
-						
-						/*机制判断*/
-						isinput:false,//是否从输入框里的时间来做初始值
-						isdistshowdate:false,//是否一开始就在输入框里显示初始化日期
-						isshowym:true,//是否显示年月,不能出现ym不显示，只要日数，就是isshowym为false的时候isshowday一定得false
-						isshowday:true,//是否显示日数选择 只有在isshowym为true时才能有作用
-						isshowtime:false,//是否显示时分秒////不能在不显示天数的情况下，同时显示年月选择和时间选择
-						
-						/*函数回调*/
-						clickday:function(id,istime,isym,isday){//日数点击，可以外接函数蹭掉默认函数，默认是把选中的日期加到日历组建底部
-							id.prev(".qkycalendar_btn").val(exports.redate(id,istime,isym,isday));
-						},
-						choosetimes:function(id,istime,isym,isday){//时间转换，可以外接函数蹭掉默认函数，默认是把选中的日期加到日历组建底部
-							id.prev(".qkycalendar_btn").val(exports.redate(id,istime,isym,isday));
-						}		
-			 };
+	var opt={
+		/*基础配置*/
+		ajaxsrc:"qky_calendar2.1/qky_calendar.html",//异步地址
+		csssrc:"qky_calendar2.1/css/",//css调用地址
+		theme:"green_theme",//主题css
+		position:"",/*在哪里展出,默认左下（css直接锁定了）展出，值："po_leftup（左上）,po_rightdown（右下）,po_rightup（右上）",还可以再加上日历弹窗宽度是否跟随输入框宽度“wd100”,用，号分开,默认日历弹窗宽度240px;*/					
+		boxid:".qkycalendar_box",//日历盒子id或者class
+		drawid:".qkycalendar",//日历渲染id或者class
+		cilckid:".qkycalendar_btn",//日历点击id或者class
+		//hoverid:".qkycalendar_btn_hover",//日历滑动id或者class
+							
+		/*初始日期时间*/
+		year:toy,
+		moon:tom,
+		day:tod,
+		minutes:minute,
+		hours:hour,
+		seconds:second,
+							
+		/*过去日子选择限制（目前只支持日期年月日，不支持单年月或者单时分秒以及年月日时分秒）*/
+		oldday_set:{isset:false,setdate:"today"},//过去日子操作设置
+		//isset是否设置限制
+		//setdate为设置什么日期或者时刻为新旧日期转折，默认为today就是今天会自动转化为今天日期，只支持格式为yyyy-mm-dd
+							
+		/*机制判断*/
+		isinput:false,//是否从输入框里的时间来做初始值
+		isdistshowdate:false,//是否一开始就在输入框里显示初始化日期
+		isshowym:true,//是否显示年月,不能出现ym不显示，只要日数，就是isshowym为false的时候isshowday一定得false
+		isshowday:true,//是否显示日数选择 只有在isshowym为true时才能有作用
+		isshowtime:false,//是否显示时分秒////不能在不显示天数的情况下，同时显示年月选择和时间选择
+							
+		/*函数回调*/
+		clickday:function(id,istime,isym,isday){//日数点击，可以外接函数蹭掉默认函数，默认是把选中的日期加到日历组建底部
+			//id.prev(".qkycalendar_btn").val(redate(id,istime,isym,isday));
+		},
+		choosetimes:function(id,istime,isym,isday){//时间转换，可以外接函数蹭掉默认函数，默认是把选中的日期加到日历组建底部
+			//id.prev(".qkycalendar_btn").val(redate(id,istime,isym,isday));
+		}		
+	};
 	
 		//暴露执行体
 		var isone=true;
@@ -70,11 +69,10 @@ define(function(require,exports) {
 			 qkycalendar_draw(opts);	
 		}
 		
+		//改变主题函数，传入主题名字
 		exports.changetheme=function(theme){
-			//console.log(theme);
 			var thishref=$("#theme").attr("href");
 			var hrefs=thishref.split("/");
-			
 			hrefs[hrefs.length-1]=theme+".css";
 			var newshref="";
 			for(var i=0;i<hrefs.length;i++){
@@ -84,7 +82,6 @@ define(function(require,exports) {
 			}
 			$("#theme").attr("href",newshref);
 	    }
-		
 
 		
 		//日历整体执行渲染（主体执行域）
@@ -97,19 +94,15 @@ define(function(require,exports) {
 			 		//初始化外框
 			 		d_opts.cilckid=$(d_opts.boxid).find(d_opts.cilckid);
 					d_opts.drawid=$(d_opts.boxid).find(d_opts.drawid);
-					d_opts.hoverid=$(d_opts.boxid).find(d_opts.hoverid);
+					//d_opts.hoverid=$(d_opts.boxid).find(d_opts.hoverid);
 					d_opts.position=d_opts.position.split(",");
 					for(var i=0;i<d_opts.position.length;i++){
 					d_opts.drawid.addClass(d_opts.position[i]);
 					}
 					
-					
-					
 					//过滤初始化日期
 					var cleardate=check_date(d_opts);
 					ys=cleardate[0];ms=Number(cleardate[1]);ds=cleardate[2];hs=cleardate[3];mis=cleardate[4];ss=cleardate[5];
-					
-					
 					
 					//初始化日期的显示情况
 					var datestring="";
@@ -129,14 +122,11 @@ define(function(require,exports) {
 					}
 					d_opts.cilckid.val(datestring);
 					
-					
 			 		//外层日历出来已否交互
 					 qkycalendar_mutual(d_opts); 
 			 
 					//年月日数据初始化渲染 
-					
 					qkycalendar_drawymd(ys,ms+1,ds,d_opts.drawid,d_opts.isshowtime,d_opts.clickday,d_opts.isshowym,d_opts.isshowday,d_opts.oldday_set);
-					
 					
 					//时分秒数据初始化渲染 
 					 if(d_opts.isshowtime&&(d_opts.isshowtime=="hm"||d_opts.isshowtime=="hms")){
@@ -145,16 +135,22 @@ define(function(require,exports) {
 						qkycalendar_times(hs,mis,ss,d_opts.drawid,d_opts.isshowtime,d_opts.choosetimes,d_opts.isshowym,d_opts.isshowday);
 					 }
 					 
-					 
-					 
 					 //年月的输入或者点击上下转换时
 					 d_opts.drawid.find(".qkycalendar_years input.time_val").on("focusout",function(){
 							 var thisyear=Number($(this).parents(".qkycalendar_years").find(".year").val());
+							 if(thisyear<1000)thisyear=1970;;//限制只能输入四位数字这些数字
+							 $(this).parents(".qkycalendar_years").find(".year").val(thisyear);
 							 var thismoon=Number($(this).parents(".qkycalendar_years").find(".moon").val());
 							 if(thismoon>12)thismoon=12;if(thismoon<=0)thismoon=1;//限制只能输入1-12这些数字
 							 $(this).parents(".qkycalendar_years").find(".moon").val(thismoon);
 							 qkycalendar_drawymd(thisyear,thismoon,ds,$(this).parents(".qkycalendar"),d_opts.isshowtime,d_opts.clickday,d_opts.isshowym,d_opts.isshowday,d_opts.oldday_set);
-							 $(this).parents(".qkycalendar").prev().val(exports.redate(d_opts.drawid,d_opts.isshowtime,d_opts.isshowym,d_opts.isshowday));
+							 var btn="";
+							 if($(this).parents(".qkycalendar_box").hasClass("s_e")){
+							 	oldday_if($(this).parents(".qkycalendar_box"));
+							 }else{
+							 	btn=$(this).parents(".qkycalendar_box").find(".qkycalendar_btn");
+								btn.val(redate(d_opts.drawid,d_opts.isshowtime,d_opts.isshowym,d_opts.isshowday));
+							 }
 						 });	
 						 
 						d_opts.drawid.find(".qkycalendar_years .time_chooseicon i").on("click",function(){
@@ -180,28 +176,48 @@ define(function(require,exports) {
 							var thisyear=Number($(this).parents(".qkycalendar_years").find(".year").val());
 							var thismoon=Number($(this).parents(".qkycalendar_years").find(".moon").val());
 							qkycalendar_drawymd(thisyear,thismoon,ds,$(this).parents(".qkycalendar"),d_opts.isshowtime,d_opts.clickday,d_opts.isshowym,d_opts.isshowday,d_opts.oldday_set);
-							$(this).parents(".qkycalendar").prev().val(exports.redate(d_opts.drawid,d_opts.isshowtime,d_opts.isshowym,d_opts.isshowday));
+							var btn="";
+							 if($(this).parents(".qkycalendar_box").hasClass("s_e")){
+							 	oldday_if($(this).parents(".qkycalendar_box"));
+							 }else{
+							 	btn=$(this).parents(".qkycalendar_box").find(".qkycalendar_btn");
+								btn.val(redate(d_opts.drawid,d_opts.isshowtime,d_opts.isshowym,d_opts.isshowday));
+							 }	
 						})
 					 
 			})
 		}
+		
+		
 		
 		//检查初始化日期，设置了从输入框初始化isinput为true，就从输入框的日期初始化，默认是初始化今天当天当时
 		function check_date(c_opts){
 			var dates=[];
 			if(c_opts.isinput){//判断是否从输入框获取值来进行初始化 格式yyyy-mm-dd hh:mm:ss
 				var thisval=c_opts.cilckid.val();
+				
 				if(isNull(thisval)!="kong"){
-					var inpymd=thisval.split(" ")[0].split("-");
-					dates.push(Number(inpymd[0]));
-					dates.push(Number(inpymd[1]-1));
-					dates.push(Number(inpymd[2]));
-					if(c_opts.isshowtime){
-						var inphms=thisval.split(" ")[1].split(":");
-						dates.push(Number(inphms[0]));
-						dates.push(Number(inphms[1]));
-						if(c_opts.isshowtime=="hms")
-						dates.push(Number(inphms[2]));
+					if(c_opts.isshowym){
+						var inpymd=thisval.split(" ")[0].split("-");
+						dates.push(Number(inpymd[0]));
+						dates.push(Number(inpymd[1]-1));
+						dates.push(Number(inpymd[2]));
+						if(c_opts.isshowtime){
+							var inphms=thisval.split(" ")[1].split(":");
+							dates.push(Number(inphms[0]));
+							dates.push(Number(inphms[1]));
+							if(c_opts.isshowtime=="hms")
+							dates.push(Number(inphms[2]));
+						}
+					}else{
+						dates.push("");dates.push("");dates.push("");
+						if(c_opts.isshowtime){
+							var inphms=thisval.split(":");
+							dates.push(Number(inphms[0]));
+							dates.push(Number(inphms[1]));
+							if(c_opts.isshowtime=="hms")
+							dates.push(Number(inphms[2]));
+						}
 					}
 			 	}
 			 }else{
@@ -221,14 +237,14 @@ define(function(require,exports) {
 		//外框交互
 		function qkycalendar_mutual(opts){
 			opts.cilckid.attr("isc","no");
-			opts.hoverid.attr("isc","no");
+			//opts.hoverid.attr("isc","no");
 			var huncundrawid= opts.drawid;
 			
 			//除此之外的点击关闭
 			$(document).on("click",":not('.qkycalendar_box')",function(){
 				$(".qkycalendar").slideUp(200);
 				opts.cilckid.removeClass("active").attr("isc","no");
-				opts.hoverid.attr("isc","no");
+				//opts.hoverid.attr("isc","no");
 			})
 			$(".qkycalendar_box").on("click",function(event){
 				event.stopPropagation();
@@ -236,20 +252,51 @@ define(function(require,exports) {
 			
 			//点击id的点击			 
 			opts.cilckid.on("click",function(){
-				$(".qkycalendar_btn").not($(this)).removeClass("active").attr("isc","no").next(".qkycalendar").slideUp(0);
-				if($(this).attr("isc")=="no"){
-					$(this).addClass("active").next(".qkycalendar").slideDown(100);
-					$(this).attr("isc","yes");
-					huncundrawid=$(this).next(".qkycalendar");
-				}else{
-					$(this).removeClass("active").next(".qkycalendar").slideUp(100);
-					$(this).attr("isc","no");
-					huncundrawid=$(this).next(".qkycalendar");
+				if($(this).parent().hasClass("s_e")){//起始日期点击输入框的时候
+					if($(this).hasClass("sdate")){//开始日期输入框点击
+						var ed=$(this).parent().find(".qkycalendar_btn.edate").val();
+						$(this).parent().find(".qkycalendar").attr("sta","s").css("left","0").attr("ond",ed).attr("iftype",false);		
+					}
+					if($(this).hasClass("edate")&&!$(this).hasClass("noclick")){//结束日期输入框点击
+						var sd=$(this).parent().find(".qkycalendar_btn.sdate").val();
+						$(this).parent().find(".qkycalendar").attr("sta","e").css("left","52%").attr("ond",sd).attr("iftype",true);	
+					}
+					s_e($(this));
+					oldday_if($(this).parent());
+					
+				}else{//单输入框的时候
+					if($(this).attr("isc")=="no"){qkycalendar_oc($(this),true);}
+					else{qkycalendar_oc($(this),false);}
 				}					  
 			});
 			
+			//双输入框的日历弹窗的开与关
+			function s_e(id){
+				if(id.parent().find(".qkycalendar").css("display")!="none"){
+					id.attr("isc","yes");
+					huncundrawid=id.parent().find(".qkycalendar");
+				}else{
+					if(id.attr("isc")=="no"){qkycalendar_oc(id,true);}
+					else{qkycalendar_oc(id,false);}
+				}
+			}
+			
+			//日历弹窗的开与关
+			function qkycalendar_oc(id,type){
+				$(".qkycalendar_btn").not($(this)).removeClass("active").attr("isc","no").parent().find(".qkycalendar").slideUp(0);
+				if(type){
+					id.addClass("active").parent().find(".qkycalendar").slideDown(100);
+					id.attr("isc","yes");
+					huncundrawid=id.parent().find(".qkycalendar");
+				}else{
+					id.removeClass("active").parent().find(".qkycalendar").slideUp(100);
+					id.attr("isc","no");
+					huncundrawid=id.parent().find(".qkycalendar");
+				}
+			}
+			
 			//悬停id的事件			  
-			$(opts.hoverid).hover(function(){
+			/*$(opts.hoverid).hover(function(){
 				$(".qkycalendar_btn_hover").not($(this)).removeClass("active").attr("isc","no").next(".qkycalendar").slideUp(0);
 				if($(this).attr("isc")=="no"){
 					$(this).next(".qkycalendar").slideDown(100);
@@ -260,8 +307,28 @@ define(function(require,exports) {
 					$(this).attr("isc","no");
 					huncundrawid=$(this).next(".qkycalendar");
 				}			   
-			},function(){});
+			},function(){});*/
+		}
+		//双输入框判断哪些日数不能点
+		function oldday_if(id){
+				var ondate=id.find(".qkycalendar").attr("ond");//判断日期的依据日期
+				var type=id.find(".qkycalendar").attr("iftype");//判断类型，是大于还是小于
+				id.find(".qkycalendar").find(".qkycalendar_mian .tables tbody tr td a").each(function(i) {
+					$(this).removeClass("oldday").removeClass("newday");
+					var o_n_day= new Date(ondate);
+					var thisdate=new Date($(this).attr("date"));
+					var ifs="";
+					
+					if(type=="true") ifs=thisdate.getTime()<=o_n_day.getTime();
+					else ifs=thisdate.getTime()>=o_n_day.getTime();
+					if(ifs){
+						$(this).addClass("oldday");
+					}else{
+						$(this).addClass("newday");
+					}
+				});		
 		}	
+		
 		
 		//日历整体渲染,输入年月日和渲染id和是否添加数据，是否显示时分秒
 		function qkycalendar_drawymd(y,m,d,id,isshowtime,clickday,isshowym,isshowday,oldday_set){
@@ -320,7 +387,6 @@ define(function(require,exports) {
 		//日历天数点击事件，或者给天数上添加数据显示
 		function qkycalendar_dayclick(id,isshowtime,clickday,isshowym,isshowday,oldday_set){
 				//日数点击
-				
 				id.find(".qkycalendar_mian .tables tbody tr td a").each(function(i) {
 					if(oldday_set.isset){
 						var o_n_day= new Date(oldday_set.setdate);
@@ -336,10 +402,24 @@ define(function(require,exports) {
 						if($(this).hasClass("newday")){
 							$(this).parents("tbody").find("a").removeClass("active");
 							$(this).addClass("active");
+							var btn;
+							//判断是否为起始日期模式
+							if(id.parent().hasClass("s_e")){
+								if(id.attr("sta")=="s"){
+									id.parent().find(".qkycalendar_btn.edate").removeAttr("readonly").removeClass("noclick");
+									btn=$(this).parents(".qkycalendar").parent().find(".qkycalendar_btn.sdate");
+								}
+								if(id.attr("sta")=="e"){
+									btn=$(this).parents(".qkycalendar").parent().find(".qkycalendar_btn.edate");
+								}	
+							}else{
+								btn=$(this).parents(".qkycalendar").parent().find(".qkycalendar_btn")
+							}
+							btn.val(redate($(this).parents(".qkycalendar"),isshowtime,isshowym,isshowday));
 							clickday($(this).parents(".qkycalendar"),isshowtime,isshowym,isshowday);
 						}
 					});
-				});	
+				});	 
 		}
 		
 		//渲染时分秒，并执行交互事件
@@ -366,28 +446,15 @@ define(function(require,exports) {
 				}
 				temval=temval < 10 ? '0' + temval: temval;
 				val.html(temval);
+				$(this).parents(".qkycalendar").parent().find(".qkycalendar_btn").val(redate($(this).parents(".qkycalendar"),isshowtime,isshowym,isshowday));
 				choosetimes($(this).parents(".qkycalendar"),isshowtime,isshowym,isshowday);
 			})
 		}
 		
-		//日历月份选择（被年月自主转换替代了）
-		/*function qkycalendar_choose(id,type,drawid,isshowtime,clickday,isshowym,isshowday){
-			var thisyear=Number(id.parent().find(".year").val());
-			var thismoon=Number(id.parent().find(".moon").val());
-			//console.log(thisyear,thismoon);
-			var addnumber;
-			var ifcode;
-			var distmoon;
-			if(type=="perv"){addnumber=-1;ifcode=(thismoon<2);distmoon=12;}
-			if(type=="next"){addnumber=1;ifcode=(thismoon>11);distmoon=1;}
-			thismoon=thismoon+addnumber;
-			if(ifcode){thismoon=distmoon;thisyear=thisyear+addnumber;}
-			else{thismoon=thismoon;thisyear=thisyear;}
-			qkycalendar_drawymd(thisyear,thismoon,ds,drawid,isshowtime,clickday,isshowym,isshowday);
-		}*/
+		
 		
 		//通过指定的日期元素和时间控件获取选中的日期和时间
-		 exports.redate=function(id,istime,isym,isday){
+		 var redate=function(id,istime,isym,isday){
 			var data=[];
 			var html="";
 			if(isym){
@@ -491,7 +558,7 @@ function getclass_indian(id){
 	return reclass;
 }
 //直接加css和js文件
-function loadExtentFile(filePath, fileType){
+function loadExtentFile(filePath, fileType,istheme){
     if(fileType == "js"){
         var oJs = document.createElement('script');        
         oJs.setAttribute("type","text/javascript");
@@ -500,10 +567,10 @@ function loadExtentFile(filePath, fileType){
     }else if(fileType == "css"){
         var oCss = document.createElement("link"); 
         oCss.setAttribute("rel", "stylesheet"); 
-        oCss.setAttribute("type", "text/css");  
+        oCss.setAttribute("type", "text/css");
+		if(istheme)oCss.setAttribute("id", "theme");  
         oCss.setAttribute("href", filePath);
         document.getElementsByTagName("head")[0].appendChild(oCss);//绑定
     }
 }
-
 })
