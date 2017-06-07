@@ -19,8 +19,8 @@ body {font-family: Microsoft YaHei,"Hiragino Sans GB W3", Helvetica, Arial, sans
   -moz-osx-font-smoothing: grayscale;
 }
 
-.row:before,.row:after{ content: " "; display: table;}
-.row:after {clear: both;}
+.rows:before,.rows:after{ content: " "; display: table;}
+.rows:after {clear: both;}
 .flo_l{ float:left;}
 .flo_r{ float:right;}
 .col_1,.col_2,.col_3,.col_4,.col_5,.col_6,.col_7,.col_8,.col_9,.col_10,.col_11,.col_12{ float:left;}
@@ -64,6 +64,12 @@ body {font-family: Microsoft YaHei,"Hiragino Sans GB W3", Helvetica, Arial, sans
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
+.s_e:before{ position: absolute; top:0; left:48%; margin-left:-30px; width:30px; content:"\e609";font-family:"calicon" !important;font-size:16px;font-style:normal;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale; line-height:30px; text-align:center; color:#535353;}
+.s_e .afclear{ clear:both;}
+.s_e .qkycalendar_btn,.s_e .qkycalendar_btn_hover{ width:48%; float:left;}
+.s_e .qkycalendar_btn.edate,.s_e .qkycalendar_btn_hover.edate{float:right;}
+.noclick{ cursor:no-drop; background:#aaa;}
+
 .times_control{ line-height:20px; position:relative; padding:5px 15%; margin:0; text-align:center;}
 .times_control .time_chooseicon{ position:absolute; right:5%; top:0; height:30px; display:none;}
 .times_control:hover .time_chooseicon{ display:block;}
@@ -73,6 +79,7 @@ body {font-family: Microsoft YaHei,"Hiragino Sans GB W3", Helvetica, Arial, sans
 
 .qkycalendar{width:240px; position:absolute; left:0; top:110%; z-index:1003; border-radius:4px;display:none; background:#fff; border:1px solid #ddd; box-shadow:1px 1px 4px 1px #e1e1e1;}
 .qkycalendar.wd100{width:100%;}
+.qkycalendar.po_leftdown{ top:110%; right:auto; left:0; bottom:auto;}
 .qkycalendar.po_leftup{ top:auto; right:auto; left:0; bottom:110%;}
 .qkycalendar.po_rightdown{bottom:auto; left:auto; right:0; top:110%}
 .qkycalendar.po_rightup{ right:0; bottom:110%;top:auto;left:auto;}
